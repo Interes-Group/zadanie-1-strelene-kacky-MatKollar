@@ -7,8 +7,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public abstract class CardPack {
+    public ArrayList<Card> cards;
 
-    public void shufflePack(ArrayList<Card> cards) {
-        Collections.shuffle(cards);
+    public void shufflePack() {
+        Collections.shuffle(this.cards);
     }
 }

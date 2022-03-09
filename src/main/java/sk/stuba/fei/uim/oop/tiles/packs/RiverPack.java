@@ -11,19 +11,18 @@ import java.util.ArrayList;
 
 
 public class RiverPack extends CardPack{
-    public ArrayList<Card> riverPack;
 
     public RiverPack() {
-        this.riverPack = new ArrayList<>();
+        this.cards = new ArrayList<>();
         this.addWaterCards();
         this.addPlayerDucks();
-        this.shufflePack(riverPack);
+        this.shufflePack();
     }
 
     private void addWaterCards() {
         for (int i = 0; i < Pond.WATER_COUNT; i++) {
             WaterCard waterCard = new WaterCard();
-            riverPack.add(waterCard);
+            cards.add(waterCard);
         }
     }
 
@@ -31,7 +30,7 @@ public class RiverPack extends CardPack{
         for (int i = 0; i < Game.numberOfPlayers; i++) {
             for (int j = 0; j < Player.DUCK_COUNT; j++) {
                 DuckCard duckCard = new DuckCard(i + 1);
-                riverPack.add(duckCard);
+                cards.add(duckCard);
             }
         }
     }
