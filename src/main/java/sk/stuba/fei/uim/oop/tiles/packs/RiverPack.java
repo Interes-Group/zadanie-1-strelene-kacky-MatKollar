@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 
 public class RiverPack extends CardPack{
-    private ArrayList<Card> riverPack;
+    public ArrayList<Card> riverPack;
 
     public RiverPack() {
         this.riverPack = new ArrayList<>();

@@ -10,26 +10,44 @@ public class Pond {
     public static final int WATER_COUNT = 5;
 
 
-    private final int riverSize = 6;
+    private final int RIVER_SIZE = 6;
     private boolean[] crosshairs;
     private ArrayList<Card> riverCards;
     private RiverPack riverPack;
 
     public Pond() {
-        this.crosshairs = new boolean[riverSize];
+        this.crosshairs = new boolean[RIVER_SIZE];
         this.riverCards = new ArrayList<Card>();
         this.preparePacks();
+        this.spreadTheCards();
     }
 
     private void preparePacks() {
         this.riverPack = new RiverPack();
     }
 
+    private void spreadTheCards() {
+        for (int i = 0; i < RIVER_SIZE; i++) {
+            this.riverCards.add(riverPack.riverPack.get(i));
+            riverPack.riverPack.remove(i);
+        }
+    }
+
     public void draw () {
         System.out.println("Pond:");
-        for (int i = 0; i < riverSize; i++) {
+        for (int i = 0; i < RIVER_SIZE; i++) {
             System.out.print(i + 1 + ". ");
-            System.out.println(this.crosshairs[i]);
+            this.isAimed(i);
+            System.out.println(" - " + this.riverCards.get(i).getName());
+        }
+    }
+
+    private void isAimed(int i) {
+        if (this.crosshairs[i]) {
+            System.out.print("Aimed at");
+        }
+        else {
+            System.out.print("Not aimed at");
         }
     }
 
