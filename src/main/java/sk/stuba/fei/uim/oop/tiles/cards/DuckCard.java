@@ -1,5 +1,10 @@
 package sk.stuba.fei.uim.oop.tiles.cards;
 
-public class DuckCard {
+public class DuckCard extends Card {
+    private int owner;
 
+    public DuckCard(int playerNumber) {
+        this.name = "Duck of player";
+        this.owner = playerNumber;
+    }
 }

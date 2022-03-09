@@ -6,14 +6,15 @@ import sk.stuba.fei.uim.oop.utility.ZKlavesnice;
 
 public class Game {
     private final Player[] players;
-    private Pond pond;
+    private final Pond pond;
+    public static int numberOfPlayers;
     private int roundCounter;
 
     public Game() {
         System.out.println("Welcome to the game Duck hunt");
-        int numberOfPlayers = ZKlavesnice.readInt("Enter the number of players: ");
-        this.players = new Player[numberOfPlayers];
-        for (int i = 0; i < numberOfPlayers; i++) {
+        this.numberOfPlayers = ZKlavesnice.readInt("Enter the number of players: ");
+        this.players = new Player[this.numberOfPlayers];
+        for (int i = 0; i < this.numberOfPlayers; i++) {
             this.players[i] = new Player(ZKlavesnice.readString("Enter name of the player "+ (i + 1) +":"), i + 1);
         }
         this.pond = new Pond();

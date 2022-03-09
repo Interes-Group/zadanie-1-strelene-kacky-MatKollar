@@ -7,6 +7,8 @@ public class Player {
     private int ducks;
     private boolean active;
 
+    public static final int DUCK_COUNT = 5;
+
     public Player(String name, int number) {
         this.name = name;
         this.number = number;
