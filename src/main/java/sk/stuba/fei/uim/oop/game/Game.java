@@ -2,13 +2,15 @@ package sk.stuba.fei.uim.oop.game;
 
 import sk.stuba.fei.uim.oop.player.Player;
 import sk.stuba.fei.uim.oop.tiles.Pond;
+import sk.stuba.fei.uim.oop.tiles.packs.ActionPack;
 import sk.stuba.fei.uim.oop.utility.ZKlavesnice;
 
 public class Game {
     private final Player[] players;
     private final Pond pond;
-    public static int numberOfPlayers;
     private int roundCounter;
+    private ActionPack actionPack;
+    public static int numberOfPlayers;
 
     public Game() {
         System.out.println("Welcome to the game Duck hunt");
@@ -17,6 +19,7 @@ public class Game {
         for (int i = 0; i < this.numberOfPlayers; i++) {
             this.players[i] = new Player(ZKlavesnice.readString("Enter name of the player "+ (i + 1) +":"), i + 1);
         }
+        this.actionPack = new ActionPack();
         this.pond = new Pond();
         this.startGame();
     }
@@ -24,11 +27,15 @@ public class Game {
     private void startGame() {
         System.out.println("------- GAME STARTED -------");
         this.roundCounter = 0;
+        this.spreadPlayerCards();
         while (getNumberOfActivePlayers() > 1) {
 
             for (int i = 0; i < getNumberOfActivePlayers(); i++) {
                 System.out.println("Player number "+ this.players[i].getNumber() + " ("+  this.players[i].getName() +") is on the turn");
                 this.pond.draw();
+                System.out.println("\nCards of player "+ + this.players[i].getNumber() + " ("+  this.players[i].getName() + "):");
+                this.players[i].drawCards();
+                System.out.println("\nChoose one card ");
                 ZKlavesnice.readString("Press Enter To Continue");
             }
             this.roundCounter++;
@@ -45,5 +52,11 @@ public class Game {
             }
         }
         return count;
+    }
+
+    private void spreadPlayerCards() {
+        for (int i = 0; i < this.numberOfPlayers; i++) {
+            this.players[i].getCards(actionPack);
+        }
     }
 }

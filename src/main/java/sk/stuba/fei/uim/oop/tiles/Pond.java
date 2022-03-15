@@ -1,6 +1,5 @@
 package sk.stuba.fei.uim.oop.tiles;
 
-
 import sk.stuba.fei.uim.oop.tiles.cards.Card;
 import sk.stuba.fei.uim.oop.tiles.packs.ActionPack;
 import sk.stuba.fei.uim.oop.tiles.packs.RiverPack;
