@@ -2,10 +2,9 @@ package sk.stuba.fei.uim.oop.tiles.packs;
 
 import sk.stuba.fei.uim.oop.game.Game;
 import sk.stuba.fei.uim.oop.player.Player;
-import sk.stuba.fei.uim.oop.tiles.Pond;
-import sk.stuba.fei.uim.oop.tiles.cards.DuckCard;
-import sk.stuba.fei.uim.oop.tiles.cards.Card;
-import sk.stuba.fei.uim.oop.tiles.cards.WaterCard;
+import sk.stuba.fei.uim.oop.board.Pond;
+import sk.stuba.fei.uim.oop.tiles.cards.river.DuckCard;
+import sk.stuba.fei.uim.oop.tiles.cards.river.WaterCard;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,6 @@
-package sk.stuba.fei.uim.oop.tiles.cards;
+package sk.stuba.fei.uim.oop.tiles.cards.river;
+
+import sk.stuba.fei.uim.oop.tiles.cards.Card;
 
 public class DuckCard extends Card {
     private int owner;

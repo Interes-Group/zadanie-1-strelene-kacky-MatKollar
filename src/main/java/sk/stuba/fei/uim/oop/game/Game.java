@@ -1,7 +1,7 @@
 package sk.stuba.fei.uim.oop.game;
 
 import sk.stuba.fei.uim.oop.player.Player;
-import sk.stuba.fei.uim.oop.tiles.Pond;
+import sk.stuba.fei.uim.oop.board.Pond;
 import sk.stuba.fei.uim.oop.tiles.packs.ActionPack;
 import sk.stuba.fei.uim.oop.utility.ZKlavesnice;
 
@@ -34,8 +34,9 @@ public class Game {
                 System.out.println("Player number "+ this.players[i].getNumber() + " ("+  this.players[i].getName() +") is on the turn");
                 this.pond.draw();
                 System.out.println("\nCards of player "+ + this.players[i].getNumber() + " ("+  this.players[i].getName() + "):");
-                this.players[i].drawCards();
-                System.out.println("\nChoose one card ");
+                this.players[i].drawCardsOnHand();
+                this.selectCard(i);
+                this.players[i].useActionCard(actionPack);
                 ZKlavesnice.readString("Press Enter To Continue");
             }
             this.roundCounter++;
@@ -57,6 +58,19 @@ public class Game {
     private void spreadPlayerCards() {
         for (int i = 0; i < this.numberOfPlayers; i++) {
             this.players[i].getCards(actionPack);
+        }
+    }
+
+    private void selectCard(int i) {
+        while (true) {
+            int cardSelection = ZKlavesnice.readInt("Select action card:");
+            if (cardSelection > 0 && cardSelection < 4) {
+                players[i].setCardSelection(cardSelection-1);
+                break;
+            }
+            else {
+                System.out.println("Invalid selection please try again: ");
+            }
         }
     }
 }

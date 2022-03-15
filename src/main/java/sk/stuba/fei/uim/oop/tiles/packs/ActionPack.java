@@ -1,6 +1,6 @@
 package sk.stuba.fei.uim.oop.tiles.packs;
 
-import sk.stuba.fei.uim.oop.tiles.cards.*;
+import sk.stuba.fei.uim.oop.tiles.cards.action.*;
 
 import java.util.ArrayList;
 

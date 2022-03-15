@@ -1,7 +1,6 @@
-package sk.stuba.fei.uim.oop.tiles;
+package sk.stuba.fei.uim.oop.board;
 
 import sk.stuba.fei.uim.oop.tiles.cards.Card;
-import sk.stuba.fei.uim.oop.tiles.packs.ActionPack;
 import sk.stuba.fei.uim.oop.tiles.packs.RiverPack;
 
 import java.util.ArrayList;
@@ -14,18 +13,16 @@ public class Pond {
     private boolean[] crosshairs;
     private ArrayList<Card> riverCards;
     private RiverPack riverPack;
-    private ActionPack actionPack;
 
     public Pond() {
         this.crosshairs = new boolean[RIVER_SIZE];
-        this.riverCards = new ArrayList<Card>();
+        this.riverCards = new ArrayList<>();
         this.preparePacks();
         this.spreadTheCards();
     }
 
     private void preparePacks() {
         this.riverPack = new RiverPack();
-        this.actionPack = new ActionPack();
     }
 
     private void spreadTheCards() {
