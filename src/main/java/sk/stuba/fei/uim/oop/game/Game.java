@@ -14,14 +14,26 @@ public class Game {
 
     public Game() {
         System.out.println("Welcome to the game Duck hunt");
-        this.numberOfPlayers = ZKlavesnice.readInt("Enter the number of players: ");
-        this.players = new Player[this.numberOfPlayers];
-        for (int i = 0; i < this.numberOfPlayers; i++) {
+        this.readNumberOfPlayers();
+        this.players = new Player[numberOfPlayers];
+        for (int i = 0; i < numberOfPlayers; i++) {
             this.players[i] = new Player(ZKlavesnice.readString("Enter name of the player "+ (i + 1) +":"), i + 1);
         }
         this.actionPack = new ActionPack();
         this.pond = new Pond();
         this.startGame();
+    }
+
+    private void readNumberOfPlayers() {
+        while (true) {
+            numberOfPlayers = ZKlavesnice.readInt("Enter the number of players: ");
+            if (numberOfPlayers > 1 && numberOfPlayers < 7) {
+                break;
+            }
+            else {
+                System.out.println("Invalid number of players, please try again: ");
+            }
+        }
     }
 
     private void startGame() {
@@ -69,7 +81,7 @@ public class Game {
                 break;
             }
             else {
-                System.out.println("Invalid selection please try again: ");
+                System.out.println("Invalid card selection, please try again: ");
             }
         }
     }
