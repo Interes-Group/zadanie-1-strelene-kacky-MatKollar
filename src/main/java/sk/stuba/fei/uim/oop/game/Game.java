@@ -31,7 +31,7 @@ public class Game {
                 break;
             }
             else {
-                System.out.println("Invalid number of players, please try again: ");
+                System.out.println("Invalid number of players (2-6), please try again: ");
             }
         }
     }
@@ -48,7 +48,7 @@ public class Game {
                 System.out.println("\nCards of player "+ + this.players[i].getNumber() + " ("+  this.players[i].getName() + "):");
                 this.players[i].drawCardsOnHand();
                 this.selectCard(i);
-                this.players[i].useActionCard(actionPack);
+                this.players[i].useActionCard(actionPack, this.pond);
                 ZKlavesnice.readString("Press Enter To Continue");
             }
             this.roundCounter++;
@@ -68,7 +68,7 @@ public class Game {
     }
 
     private void spreadPlayerCards() {
-        for (int i = 0; i < this.numberOfPlayers; i++) {
+        for (int i = 0; i < numberOfPlayers; i++) {
             this.players[i].getCards(actionPack);
         }
     }

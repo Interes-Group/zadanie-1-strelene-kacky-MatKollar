@@ -1,5 +1,6 @@
 package sk.stuba.fei.uim.oop.player;
 
+import sk.stuba.fei.uim.oop.board.Pond;
 import sk.stuba.fei.uim.oop.tiles.cards.action.ActionCard;
 import sk.stuba.fei.uim.oop.tiles.packs.ActionPack;
 
@@ -39,8 +40,8 @@ public class Player {
         }
     }
 
-    public void useActionCard(ActionPack actionPack) {
-        this.actionCardsOnHand.get(cardSelection).activate();
+    public void useActionCard(ActionPack actionPack, Pond pond) {
+        this.actionCardsOnHand.get(cardSelection).activate(pond);
         this.takeNewCard(actionPack);
     }
 

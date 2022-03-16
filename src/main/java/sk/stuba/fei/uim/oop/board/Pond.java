@@ -9,7 +9,7 @@ public class Pond {
     public static final int WATER_COUNT = 5;
 
 
-    private final int RIVER_SIZE = 6;
+    public final static int RIVER_SIZE = 6;
     private boolean[] crosshairs;
     private ArrayList<Card> riverCards;
     private RiverPack riverPack;
@@ -50,4 +50,11 @@ public class Pond {
         }
     }
 
+    public boolean[] getCrosshairs() {
+        return crosshairs;
+    }
+
+    public void setCrosshairs(boolean[] crosshairs) {
+        this.crosshairs = crosshairs;
+    }
 }

@@ -1,6 +1,8 @@
 package sk.stuba.fei.uim.oop.tiles.cards.action;
 
 
+import sk.stuba.fei.uim.oop.board.Pond;
+
 public class ScatterCard extends ActionCard {
 
     public ScatterCard() {
@@ -8,7 +10,7 @@ public class ScatterCard extends ActionCard {
     }
 
     @Override
-    public void activate() {
+    public void activate(Pond pond) {
 
     }
 }
