@@ -57,4 +57,12 @@ public class Pond {
     public void setCrosshairs(boolean[] crosshairs) {
         this.crosshairs = crosshairs;
     }
+
+    public ArrayList<Card> getRiverCards() {
+        return riverCards;
+    }
+
+    public void setRiverCards(ArrayList<Card> riverCards) {
+        this.riverCards = riverCards;
+    }
 }
