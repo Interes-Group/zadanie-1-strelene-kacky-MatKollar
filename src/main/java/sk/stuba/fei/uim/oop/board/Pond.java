@@ -24,7 +24,7 @@ public class Pond {
         this.riverPack = new RiverPack();
     }
 
-    private void spreadTheCards() {
+    public void spreadTheCards() {
         for (int i = 0; i < RIVER_SIZE; i++) {
             this.riverCards.add(riverPack.cards.get(i));
             riverPack.cards.remove(i);
@@ -68,5 +68,9 @@ public class Pond {
 
     public void setRiverCards(ArrayList<Card> riverCards) {
         this.riverCards = riverCards;
+    }
+
+    public RiverPack getRiverPack() {
+        return riverPack;
     }
 }
