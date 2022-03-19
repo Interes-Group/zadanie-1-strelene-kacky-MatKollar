@@ -1,7 +1,6 @@
 package sk.stuba.fei.uim.oop.player;
 
 import sk.stuba.fei.uim.oop.board.Pond;
-import sk.stuba.fei.uim.oop.game.Game;
 import sk.stuba.fei.uim.oop.tiles.cards.action.ActionCard;
 import sk.stuba.fei.uim.oop.tiles.packs.ActionPack;
 

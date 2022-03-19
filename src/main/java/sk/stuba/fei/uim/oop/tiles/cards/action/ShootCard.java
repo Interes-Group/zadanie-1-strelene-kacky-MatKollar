@@ -27,9 +27,7 @@ public class ShootCard extends ActionCard {
            this.shootDuck(pond, shootSelection, players);
         }
         crosshairs[shootSelection] = false;
-
         pond.setCrosshairs(crosshairs);
-
     }
 
     private int readShootSelection(boolean[] crosshairs) {
