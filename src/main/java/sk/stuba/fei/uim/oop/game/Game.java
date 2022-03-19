@@ -48,7 +48,7 @@ public class Game {
                 System.out.println("\nCards of player "+ + this.players[i].getNumber() + " ("+  this.players[i].getName() + "):");
                 this.players[i].drawCardsOnHand();
                 this.selectCard(i);
-                this.players[i].useActionCard(actionPack, this.pond);
+                this.players[i].useActionCard(actionPack, this.pond, this.players);
                 ZKlavesnice.readString("Press Enter To Continue");
             }
             this.roundCounter++;

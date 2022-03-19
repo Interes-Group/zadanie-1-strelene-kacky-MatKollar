@@ -1,6 +1,7 @@
 package sk.stuba.fei.uim.oop.player;
 
 import sk.stuba.fei.uim.oop.board.Pond;
+import sk.stuba.fei.uim.oop.game.Game;
 import sk.stuba.fei.uim.oop.tiles.cards.action.ActionCard;
 import sk.stuba.fei.uim.oop.tiles.packs.ActionPack;
 
@@ -12,7 +13,6 @@ public class Player {
     private final int number;
     private int ducks;
     private int cardSelection;
-    private boolean active;
     private ArrayList<ActionCard> actionCardsOnHand;
 
     public static final int DUCK_COUNT = 5;
@@ -22,8 +22,7 @@ public class Player {
     public Player(String name, int number) {
         this.name = name;
         this.number = number;
-        this.ducks = 5;
-        this.active = true;
+        this.ducks = DUCK_COUNT;
         this.actionCardsOnHand = new ArrayList<>();
     }
 
@@ -40,8 +39,8 @@ public class Player {
         }
     }
 
-    public void useActionCard(ActionPack actionPack, Pond pond) {
-        this.actionCardsOnHand.get(cardSelection).activate(pond);
+    public void useActionCard(ActionPack actionPack, Pond pond, Player[] players) {
+        this.actionCardsOnHand.get(cardSelection).activate(pond, players);
         this.takeNewCard(actionPack);
     }
 
@@ -56,6 +55,14 @@ public class Player {
         this.actionCardsOnHand.remove(cardSelection);
     }
 
+    public void duckDied() {
+        this.ducks--;
+    }
+
+    public boolean isActive() {
+        return this.ducks > 0;
+    }
+
     public int getNumber() {
         return number;
     }
@@ -64,9 +71,6 @@ public class Player {
         return name;
     }
 
-    public boolean isActive() {
-        return active;
-    }
 
     public void setCardSelection(int cardSelection) {
         this.cardSelection = cardSelection;

@@ -2,6 +2,7 @@ package sk.stuba.fei.uim.oop.tiles.cards.action;
 
 
 import sk.stuba.fei.uim.oop.board.Pond;
+import sk.stuba.fei.uim.oop.player.Player;
 import sk.stuba.fei.uim.oop.tiles.cards.Card;
 import sk.stuba.fei.uim.oop.tiles.cards.river.DuckCard;
 import sk.stuba.fei.uim.oop.utility.ZKlavesnice;
@@ -15,7 +16,7 @@ public class TurboDuckCard extends ActionCard {
     }
 
     @Override
-    public void activate(Pond pond) {
+    public void activate(Pond pond, Player[] players) {
         while (true) {
             int duckSelection = this.readDuckSelection(pond);
             ArrayList<Card> riverCards = pond.getRiverCards();

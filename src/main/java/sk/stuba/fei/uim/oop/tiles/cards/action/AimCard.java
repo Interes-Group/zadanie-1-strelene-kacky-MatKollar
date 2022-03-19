@@ -1,6 +1,7 @@
 package sk.stuba.fei.uim.oop.tiles.cards.action;
 
 import sk.stuba.fei.uim.oop.board.Pond;
+import sk.stuba.fei.uim.oop.player.Player;
 import sk.stuba.fei.uim.oop.utility.ZKlavesnice;
 
 public class AimCard extends ActionCard {
@@ -10,17 +11,17 @@ public class AimCard extends ActionCard {
     }
 
     @Override
-    public void activate(Pond pond) {
+    public void activate(Pond pond,  Player[] players) {
 
-       boolean[] crosshairs = pond.getCrosshairs();
-       while (true) {
-           int aimSelection = this.readAimSelection();
-           if (!crosshairs[aimSelection]) {
-               crosshairs[aimSelection] = true;
-               pond.setCrosshairs(crosshairs);
-               break;
-           }
-       }
+        boolean[] crosshairs = pond.getCrosshairs();
+        while (true) {
+            int aimSelection = this.readAimSelection();
+            if (!crosshairs[aimSelection]) {
+                crosshairs[aimSelection] = true;
+                pond.setCrosshairs(crosshairs);
+                break;
+            }
+        }
     }
 
     private int readAimSelection() {

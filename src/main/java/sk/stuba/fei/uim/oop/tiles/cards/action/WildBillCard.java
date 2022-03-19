@@ -2,6 +2,7 @@ package sk.stuba.fei.uim.oop.tiles.cards.action;
 
 
 import sk.stuba.fei.uim.oop.board.Pond;
+import sk.stuba.fei.uim.oop.player.Player;
 
 public class WildBillCard extends ActionCard {
 
@@ -10,7 +11,7 @@ public class WildBillCard extends ActionCard {
     }
 
     @Override
-    public void activate(Pond pond) {
+    public void activate(Pond pond, Player[] players) {
 
     }
 }

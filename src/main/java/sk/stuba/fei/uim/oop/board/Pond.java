@@ -1,5 +1,6 @@
 package sk.stuba.fei.uim.oop.board;
 
+import sk.stuba.fei.uim.oop.player.Player;
 import sk.stuba.fei.uim.oop.tiles.cards.Card;
 import sk.stuba.fei.uim.oop.tiles.packs.RiverPack;
 
@@ -7,7 +8,6 @@ import java.util.ArrayList;
 
 public class Pond {
     public static final int WATER_COUNT = 5;
-
 
     public final static int RIVER_SIZE = 6;
     private boolean[] crosshairs;
@@ -48,6 +48,11 @@ public class Pond {
         else {
             System.out.print("Not aimed at");
         }
+    }
+
+    public void addCardOnRiver() {
+        this.riverCards.add(this.riverPack.cards.get(0));
+        this.riverPack.cards.remove(0);
     }
 
     public boolean[] getCrosshairs() {
