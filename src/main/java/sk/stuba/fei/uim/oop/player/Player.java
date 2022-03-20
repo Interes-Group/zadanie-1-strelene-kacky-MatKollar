@@ -5,6 +5,7 @@ import sk.stuba.fei.uim.oop.tiles.cards.action.ActionCard;
 import sk.stuba.fei.uim.oop.tiles.packs.ActionPack;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Player {
 
@@ -40,19 +41,53 @@ public class Player {
 
     public void useActionCard(ActionPack actionPack, Pond pond, Player[] players) {
         this.actionCardsOnHand.get(cardSelection).activate(pond, players);
-        this.takeNewCard(actionPack);
+        this.takeNewCard(actionPack, this.cardSelection);
     }
 
-    private void takeNewCard(ActionPack actionPack) {
-        returnUsedCard(actionPack);
+    public boolean cardCanBePlayed(Pond pond, ActionCard card) {
+        if (Objects.equals(card.getName(), "Shoot")) {
+            return this.canYouShoot(pond);
+        }
+        else if (Objects.equals(card.getName(), "Aim")) {
+            return this.canYouAim(pond);
+        }
+        else {
+            return true;
+        }
+    }
+
+    private boolean canYouShoot(Pond pond) {
+        boolean[] crosshairs = pond.getCrosshairs();
+        for (boolean crosshair : crosshairs) {
+            if (crosshair) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean canYouAim(Pond pond) {
+        boolean[] crosshairs = pond.getCrosshairs();
+        for (boolean crosshair : crosshairs) {
+            if (!crosshair) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void takeNewCard(ActionPack actionPack, int cardSelection) {
+        returnUsedCard(actionPack, cardSelection);
         this.actionCardsOnHand.add((ActionCard) actionPack.cards.get(0));
         actionPack.cards.remove(0);
     }
 
-    private void returnUsedCard(ActionPack actionPack) {
+    private void returnUsedCard(ActionPack actionPack, int cardSelection) {
         actionPack.cards.add(this.actionCardsOnHand.get(cardSelection));
         this.actionCardsOnHand.remove(cardSelection);
     }
+
+
 
     public void duckDied() {
         this.ducks--;
@@ -70,8 +105,11 @@ public class Player {
         return name;
     }
 
-
     public void setCardSelection(int cardSelection) {
         this.cardSelection = cardSelection;
+    }
+
+    public ArrayList<ActionCard> getActionCardsOnHand() {
+        return actionCardsOnHand;
     }
 }

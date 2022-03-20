@@ -32,7 +32,7 @@ public class TurboDuckCard extends ActionCard {
             int duckSelection = ZKlavesnice.readInt("Select duck: ");
             duckSelection--;
 
-            if (duckSelection > 0 && duckSelection < 6 && (riverCards.get(duckSelection) instanceof DuckCard)) {
+            if (duckSelection >= 0 && duckSelection < 6 && (riverCards.get(duckSelection) instanceof DuckCard)) {
                 return duckSelection;
             }
             else {

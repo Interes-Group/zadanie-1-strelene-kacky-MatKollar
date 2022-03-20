@@ -2,8 +2,10 @@ package sk.stuba.fei.uim.oop.game;
 
 import sk.stuba.fei.uim.oop.player.Player;
 import sk.stuba.fei.uim.oop.board.Pond;
+import sk.stuba.fei.uim.oop.tiles.cards.action.ActionCard;
 import sk.stuba.fei.uim.oop.tiles.packs.ActionPack;
 import sk.stuba.fei.uim.oop.utility.ZKlavesnice;
+
 
 public class Game {
     private final Player[] players;
@@ -47,8 +49,16 @@ public class Game {
                 this.pond.draw();
                 System.out.println("\nCards of player "+ + this.players[i].getNumber() + " ("+  this.players[i].getName() + "):");
                 this.players[i].drawCardsOnHand();
-                this.selectCard(i);
-                this.players[i].useActionCard(actionPack, this.pond, this.players);
+
+                if (this.actionCardsCanBePlayed(i)) {
+                    this.selectCard(i);
+                    this.players[i].useActionCard(actionPack, this.pond, this.players);
+                }
+                else {
+                    System.out.println("\nYou can't use any card (ROUND SKIPPED)");
+                    this.players[i].takeNewCard(actionPack, 0);
+                }
+
                 ZKlavesnice.readString("Press Enter To Continue");
             }
             this.roundCounter++;
@@ -73,12 +83,28 @@ public class Game {
         }
     }
 
+    private boolean actionCardsCanBePlayed(int playerNumber) {
+        for (ActionCard card : this.players[playerNumber].getActionCardsOnHand()) {
+           if(this.players[playerNumber].cardCanBePlayed(this.pond, card)) {
+            return true;
+           }
+        }
+        return false;
+    }
+
     private void selectCard(int i) {
         while (true) {
             int cardSelection = ZKlavesnice.readInt("Select action card:");
+
             if (cardSelection > 0 && cardSelection < 4) {
                 players[i].setCardSelection(cardSelection-1);
-                break;
+                ActionCard card = this.players[i].getActionCardsOnHand().get(cardSelection-1);
+                if (players[i].cardCanBePlayed(this.pond, card)) {
+                    break;
+                }
+                else {
+                    System.out.println("You can't play this card");
+                }
             }
             else {
                 System.out.println("Invalid card selection, please try again: ");
