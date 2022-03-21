@@ -39,32 +39,37 @@ public class Game {
     }
 
     private void startGame() {
-        System.out.println("------- GAME STARTED -------");
+        System.out.println("----------- GAME STARTED -----------");
         this.roundCounter = 0;
         this.spreadPlayerCards();
         while (getNumberOfActivePlayers() > 1) {
 
-            for (int i = 0; i < getNumberOfActivePlayers(); i++) {
-                System.out.println("Player number "+ this.players[i].getNumber() + " ("+  this.players[i].getName() +") is on the turn");
+            for (int currentPlayer = 0; getNumberOfActivePlayers() > 1; currentPlayer = this.getNextPlayer(currentPlayer)) {
+                System.out.println("Player number "+ this.players[currentPlayer].getNumber() + " ("+  this.players[currentPlayer].getName() +") is on the turn");
                 this.pond.draw();
-                System.out.println("\nCards of player "+ + this.players[i].getNumber() + " ("+  this.players[i].getName() + "):");
-                this.players[i].drawCardsOnHand();
+                System.out.println("\nCards of player "+ + this.players[currentPlayer].getNumber() + " ("+  this.players[currentPlayer].getName() + "):");
+                this.players[currentPlayer].drawCardsOnHand();
 
-                if (this.actionCardsCanBePlayed(i)) {
-                    this.selectCard(i);
-                    this.players[i].useActionCard(actionPack, this.pond, this.players);
+                if (this.actionCardsCanBePlayed(currentPlayer)) {
+                    this.selectCard(currentPlayer);
+                    this.players[currentPlayer].useActionCard(actionPack, this.pond, this.players);
                 }
                 else {
-                    System.out.println("\nYou can't use any card (ROUND SKIPPED)");
-                    this.players[i].takeNewCard(actionPack, 0);
-                }
 
+
+                    System.out.println("\nYou can't use any card (ROUND SKIPPED)");
+                    this.players[currentPlayer].takeNewCard(actionPack, 0);
+                }
                 ZKlavesnice.readString("Press Enter To Continue");
+                if (currentPlayer == getLastActivePlayer()) {
+                    break;
+                }
             }
             this.roundCounter++;
             System.out.println("ROUND NUMBER " + this.roundCounter + " IS OVER.\n");
         }
-        System.out.println("------ GAME FINISHED ------");
+        this.printWinner();
+        System.out.println("---------- GAME FINISHED ----------");
     }
 
     private int getNumberOfActivePlayers() {
@@ -75,6 +80,25 @@ public class Game {
             }
         }
         return count;
+    }
+
+    private int getLastActivePlayer() {
+        int lastActive = 0;
+        for (int i = 0; i < this.players.length; i++) {
+            if (players[i].isActive()) {
+                lastActive = i;
+            }
+        }
+        return lastActive;
+    }
+
+    private int getNextPlayer(int currentPlayer) {
+        for (int nextPlayer = currentPlayer + 1; nextPlayer < this.players.length; nextPlayer++) {
+            if (this.players[nextPlayer].isActive()) {
+                return nextPlayer;
+            }
+        }
+        return currentPlayer;
     }
 
     private void spreadPlayerCards() {
@@ -103,11 +127,19 @@ public class Game {
                     break;
                 }
                 else {
-                    System.out.println("You can't play this card");
+                    System.out.println("You can't play this card.");
                 }
             }
             else {
                 System.out.println("Invalid card selection, please try again: ");
+            }
+        }
+    }
+
+    private void printWinner() {
+        for (int i = 0; i < this.players.length; i++) {
+            if (players[i].isActive()) {
+                System.out.println("THE WINNER IS PLAYER "+ players[i].getNumber() + " ("+ players[i].getName() + ").");
             }
         }
     }

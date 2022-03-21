@@ -87,8 +87,6 @@ public class Player {
         this.actionCardsOnHand.remove(cardSelection);
     }
 
-
-
     public void duckDied() {
         this.ducks--;
     }
