@@ -16,22 +16,17 @@ public class TurboDuckCard extends ActionCard {
 
     @Override
     public void activate(Pond pond, Player[] players) {
-        while (true) {
-            int duckSelection = this.readDuckSelection(pond);
-            ArrayList<Card> riverCards = pond.getRiverCards();
-            riverCards.add(0, riverCards.get(duckSelection));
-            riverCards.remove(duckSelection + 1);
-            break;
-        }
+        int duckSelection = this.readDuckSelection(pond);
+        ArrayList<Card> riverCards = pond.getRiverCards();
+        riverCards.add(0, riverCards.get(duckSelection));
+        riverCards.remove(duckSelection + 1);
     }
 
     private int readDuckSelection(Pond pond) {
         ArrayList<Card> riverCards = pond.getRiverCards();
-
         while (true) {
             int duckSelection = ZKlavesnice.readInt("Select duck: ");
             duckSelection--;
-
             if (duckSelection >= 0 && duckSelection < 6 && (riverCards.get(duckSelection) instanceof DuckCard)) {
                 return duckSelection;
             }
@@ -39,6 +34,5 @@ public class TurboDuckCard extends ActionCard {
                 System.out.println("Invalid selection, please try again: ");
             }
         }
-
     }
 }

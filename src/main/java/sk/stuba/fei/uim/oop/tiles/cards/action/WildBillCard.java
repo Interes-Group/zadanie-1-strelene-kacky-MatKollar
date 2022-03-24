@@ -16,12 +16,9 @@ public class WildBillCard extends ActionCard {
 
     @Override
     public void activate(Pond pond, Player[] players) {
-
         boolean[] crosshairs = pond.getCrosshairs();
         ArrayList<Card> riverCards = pond.getRiverCards();
-
         int shootSelection = this.readShootSelection();
-
         if (riverCards.get(shootSelection) instanceof DuckCard) {
             this.shootDuck(pond, shootSelection, players);
         }
@@ -45,7 +42,7 @@ public class WildBillCard extends ActionCard {
     private void shootDuck(Pond pond, int shootSelection, Player[] players) {
         ArrayList<Card> riverCards = pond.getRiverCards();
         DuckCard duck = (DuckCard) riverCards.get(shootSelection);
-        players[duck.getOwner() - 1].duckDied();
+        players[duck.getOwner() - 1].duckDied(pond);
         riverCards.remove(shootSelection);
         pond.addCardOnRiver();
     }

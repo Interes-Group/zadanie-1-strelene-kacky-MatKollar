@@ -1,6 +1,5 @@
 package sk.stuba.fei.uim.oop.tiles.cards.action;
 
-
 import sk.stuba.fei.uim.oop.board.Pond;
 import sk.stuba.fei.uim.oop.player.Player;
 import sk.stuba.fei.uim.oop.tiles.cards.Card;
@@ -17,12 +16,9 @@ public class ShootCard extends ActionCard {
 
     @Override
     public void activate(Pond pond, Player[] players) {
-
         boolean[] crosshairs = pond.getCrosshairs();
         ArrayList<Card> riverCards = pond.getRiverCards();
-
         int shootSelection = this.readShootSelection(crosshairs);
-
         if (riverCards.get(shootSelection) instanceof DuckCard) {
            this.shootDuck(pond, shootSelection, players);
         }
@@ -46,7 +42,7 @@ public class ShootCard extends ActionCard {
     private void shootDuck(Pond pond, int shootSelection, Player[] players) {
         ArrayList<Card> riverCards = pond.getRiverCards();
         DuckCard duck = (DuckCard) riverCards.get(shootSelection);
-        players[duck.getOwner() - 1].duckDied();
+        players[duck.getOwner() - 1].duckDied(pond);
         riverCards.remove(shootSelection);
         pond.addCardOnRiver();
     }

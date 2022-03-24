@@ -17,7 +17,6 @@ public class DuckMarchCard extends ActionCard {
     public void activate(Pond pond, Player[] players) {
         ArrayList<Card> riverCards = pond.getRiverCards();
         RiverPack riverPack = pond.getRiverPack();
-
         riverPack.cards.add(riverCards.get(0));
         riverCards.remove(0);
         pond.addCardOnRiver();

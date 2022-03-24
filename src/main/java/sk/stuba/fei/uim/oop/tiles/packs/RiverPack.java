@@ -1,6 +1,5 @@
 package sk.stuba.fei.uim.oop.tiles.packs;
 
-import sk.stuba.fei.uim.oop.game.Game;
 import sk.stuba.fei.uim.oop.player.Player;
 import sk.stuba.fei.uim.oop.board.Pond;
 import sk.stuba.fei.uim.oop.tiles.cards.river.DuckCard;
@@ -8,13 +7,12 @@ import sk.stuba.fei.uim.oop.tiles.cards.river.WaterCard;
 
 import java.util.ArrayList;
 
+public class RiverPack extends CardPack {
 
-public class RiverPack extends CardPack{
-
-    public RiverPack() {
+    public RiverPack(int numberOfPlayers) {
         this.cards = new ArrayList<>();
         this.addWaterCards();
-        this.addPlayerDucks();
+        this.addPlayerDucks(numberOfPlayers);
         this.shufflePack();
     }
 
@@ -25,13 +23,12 @@ public class RiverPack extends CardPack{
         }
     }
 
-    private void addPlayerDucks() {
-        for (int i = 0; i < Game.numberOfPlayers; i++) {
+    private void addPlayerDucks(int numberOfPlayers) {
+        for (int i = 0; i < numberOfPlayers; i++) {
             for (int j = 0; j < Player.DUCK_COUNT; j++) {
                 DuckCard duckCard = new DuckCard(i + 1);
                 cards.add(duckCard);
             }
         }
     }
-
 }

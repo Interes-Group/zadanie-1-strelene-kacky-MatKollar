@@ -3,16 +3,13 @@ package sk.stuba.fei.uim.oop.game;
 import sk.stuba.fei.uim.oop.player.Player;
 import sk.stuba.fei.uim.oop.board.Pond;
 import sk.stuba.fei.uim.oop.tiles.cards.action.ActionCard;
-import sk.stuba.fei.uim.oop.tiles.packs.ActionPack;
 import sk.stuba.fei.uim.oop.utility.ZKlavesnice;
-
 
 public class Game {
     private final Player[] players;
     private final Pond pond;
-    private int roundCounter;
-    private ActionPack actionPack;
-    public static int numberOfPlayers;
+
+    private int numberOfPlayers;
 
     public Game() {
         System.out.println("Welcome to the game Duck hunt");
@@ -21,8 +18,7 @@ public class Game {
         for (int i = 0; i < numberOfPlayers; i++) {
             this.players[i] = new Player(ZKlavesnice.readString("Enter name of the player "+ (i + 1) +":"), i + 1);
         }
-        this.actionPack = new ActionPack();
-        this.pond = new Pond();
+        this.pond = new Pond(numberOfPlayers);
         this.startGame();
     }
 
@@ -39,57 +35,49 @@ public class Game {
     }
 
     private void startGame() {
-        System.out.println("----------- GAME STARTED -----------");
-        this.roundCounter = 0;
+        System.out.println("<----------- GAME STARTED ----------->");
+        int roundCounter = 0;
         this.spreadPlayerCards();
         while (getNumberOfActivePlayers() > 1) {
-
             for (int currentPlayer = 0; getNumberOfActivePlayers() > 1; currentPlayer = this.getNextPlayer(currentPlayer)) {
-                System.out.println("Player number "+ this.players[currentPlayer].getNumber() + " ("+  this.players[currentPlayer].getName() +") is on the turn");
+                System.out.println("\nPlayer number " + this.players[currentPlayer].getNumber() + " ("+  this.players[currentPlayer].getName() +") is on the turn");
+                this.players[currentPlayer].drawDucksNumber();
                 this.pond.draw();
-                System.out.println("\nCards of player "+ + this.players[currentPlayer].getNumber() + " ("+  this.players[currentPlayer].getName() + "):");
+                System.out.println("\nCards of player " + this.players[currentPlayer].getNumber() + " ("+  this.players[currentPlayer].getName() + "):");
                 this.players[currentPlayer].drawCardsOnHand();
-
                 if (this.actionCardsCanBePlayed(currentPlayer)) {
                     this.selectCard(currentPlayer);
-                    this.players[currentPlayer].useActionCard(actionPack, this.pond, this.players);
+                    this.players[currentPlayer].useActionCard(this.pond, this.players);
                 }
                 else {
-
-
                     System.out.println("\nYou can't use any card (ROUND SKIPPED)");
-                    this.players[currentPlayer].takeNewCard(actionPack, 0);
+                    this.players[currentPlayer].takeNewCard(this.pond, 0);
                 }
-                ZKlavesnice.readString("Press Enter To Continue");
-                if (currentPlayer == getLastActivePlayer()) {
+                if (currentPlayer == getLastActivePlayerInThisRound()) {
                     break;
                 }
             }
-            this.roundCounter++;
-            System.out.println("ROUND NUMBER " + this.roundCounter + " IS OVER.\n");
+            roundCounter++;
+            System.out.println("ROUND NUMBER " + roundCounter + " IS OVER.\n");
         }
         this.printWinner();
-        System.out.println("---------- GAME FINISHED ----------");
+        System.out.println("<---------- GAME FINISHED ---------->");
+    }
+
+    private void spreadPlayerCards() {
+        for (int i = 0; i < numberOfPlayers; i++) {
+            this.players[i].getCards(this.pond);
+        }
     }
 
     private int getNumberOfActivePlayers() {
         int count = 0;
-        for (int i = 0; i < this.players.length; i++) {
-            if (this.players[i].isActive()) {
+        for (Player player : this.players) {
+            if (player.isActive()) {
                 count++;
             }
         }
         return count;
-    }
-
-    private int getLastActivePlayer() {
-        int lastActive = 0;
-        for (int i = 0; i < this.players.length; i++) {
-            if (players[i].isActive()) {
-                lastActive = i;
-            }
-        }
-        return lastActive;
     }
 
     private int getNextPlayer(int currentPlayer) {
@@ -101,10 +89,14 @@ public class Game {
         return currentPlayer;
     }
 
-    private void spreadPlayerCards() {
-        for (int i = 0; i < numberOfPlayers; i++) {
-            this.players[i].getCards(actionPack);
+    private int getLastActivePlayerInThisRound() {
+        int lastActive = 0;
+        for (int i = 0; i < this.players.length; i++) {
+            if (players[i].isActive()) {
+                lastActive = i;
+            }
         }
+        return lastActive;
     }
 
     private boolean actionCardsCanBePlayed(int playerNumber) {
@@ -127,7 +119,7 @@ public class Game {
                     break;
                 }
                 else {
-                    System.out.println("You can't play this card.");
+                    System.out.println("You can't play this card right now.");
                 }
             }
             else {
@@ -137,9 +129,9 @@ public class Game {
     }
 
     private void printWinner() {
-        for (int i = 0; i < this.players.length; i++) {
-            if (players[i].isActive()) {
-                System.out.println("THE WINNER IS PLAYER "+ players[i].getNumber() + " ("+ players[i].getName() + ").");
+        for (Player player : this.players) {
+            if (player.isActive()) {
+                System.out.println("THE WINNER IS PLAYER " + player.getNumber() + " (" + player.getName() + ").");
             }
         }
     }

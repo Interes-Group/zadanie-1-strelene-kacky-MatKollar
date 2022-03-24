@@ -13,7 +13,6 @@ public class ActionPack extends CardPack{
     private final int SCATTER_CARD_COUNT = 2;
     private final int DUCK_DANCE_COUNT = 1;
 
-
     public ActionPack() {
         this.cards = new ArrayList<>();
         this.addAimCards();
@@ -25,7 +24,6 @@ public class ActionPack extends CardPack{
         this.addDuckDanceCard();
         this.shufflePack();
     }
-
 
     private void addAimCards() {
         for (int i = 0; i < AIM_CARDS_COUNT; i++) {
