@@ -39,22 +39,24 @@ public class Game {
         int roundCounter = 0;
         this.spreadPlayerCards();
         while (getNumberOfActivePlayers() > 1) {
-            for (int currentPlayer = 0; getNumberOfActivePlayers() > 1; currentPlayer = this.getNextPlayer(currentPlayer)) {
-                System.out.println("\nPlayer number " + this.players[currentPlayer].getNumber() + " ("+  this.players[currentPlayer].getName() +") is on the turn");
-                this.players[currentPlayer].drawDucksNumber();
-                this.pond.draw();
-                System.out.println("\nCards of player " + this.players[currentPlayer].getNumber() + " ("+  this.players[currentPlayer].getName() + "):");
-                this.players[currentPlayer].drawCardsOnHand();
-                if (this.actionCardsCanBePlayed(currentPlayer)) {
-                    this.selectCard(currentPlayer);
-                    this.players[currentPlayer].useActionCard(this.pond, this.players);
-                }
-                else {
-                    System.out.println("\nYou can't use any card (ROUND SKIPPED)");
-                    this.players[currentPlayer].takeNewCard(this.pond, 0);
-                }
-                if (currentPlayer == getLastActivePlayerInThisRound()) {
-                    break;
+            for (Player player : this.players) {
+                if (player.isActive()) {
+                    System.out.println("\nPlayer number " + player.getNumber() + " ("+  player.getName() +") is on the turn");
+                    player.drawDucksNumber();
+                    this.pond.draw();
+                    System.out.println("\nCards of player " + player.getNumber() + " ("+  player.getName() + "):");
+                    player.drawCardsOnHand();
+                    if (this.actionCardsCanBePlayed(player.getNumber()-1)) {
+                        this.selectCard(player.getNumber()-1);
+                        player.useActionCard(this.pond, this.players);
+                    }
+                    else {
+                        System.out.println("\nYou can't use any card (ROUND SKIPPED)");
+                        player.takeNewCard(this.pond, 0);
+                    }
+                    if (getNumberOfActivePlayers() == 1) {
+                        break;
+                    }
                 }
             }
             roundCounter++;
@@ -78,25 +80,6 @@ public class Game {
             }
         }
         return count;
-    }
-
-    private int getNextPlayer(int currentPlayer) {
-        for (int nextPlayer = currentPlayer + 1; nextPlayer < this.players.length; nextPlayer++) {
-            if (this.players[nextPlayer].isActive()) {
-                return nextPlayer;
-            }
-        }
-        return currentPlayer;
-    }
-
-    private int getLastActivePlayerInThisRound() {
-        int lastActive = 0;
-        for (int i = 0; i < this.players.length; i++) {
-            if (players[i].isActive()) {
-                lastActive = i;
-            }
-        }
-        return lastActive;
     }
 
     private boolean actionCardsCanBePlayed(int playerNumber) {
