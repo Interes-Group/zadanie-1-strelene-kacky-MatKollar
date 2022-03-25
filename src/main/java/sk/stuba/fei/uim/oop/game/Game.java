@@ -8,7 +8,6 @@ import sk.stuba.fei.uim.oop.utility.ZKlavesnice;
 public class Game {
     private final Player[] players;
     private final Pond pond;
-
     private int numberOfPlayers;
 
     public Game() {
@@ -40,7 +39,7 @@ public class Game {
         this.spreadPlayerCards();
         while (getNumberOfActivePlayers() > 1) {
             for (Player player : this.players) {
-                if (player.isActive()) {
+                if (player.isAlive()) {
                     System.out.println("\nPlayer number " + player.getNumber() + " ("+  player.getName() +") is on the turn");
                     player.drawDucksNumber();
                     this.pond.draw();
@@ -75,7 +74,7 @@ public class Game {
     private int getNumberOfActivePlayers() {
         int count = 0;
         for (Player player : this.players) {
-            if (player.isActive()) {
+            if (player.isAlive()) {
                 count++;
             }
         }
@@ -113,7 +112,7 @@ public class Game {
 
     private void printWinner() {
         for (Player player : this.players) {
-            if (player.isActive()) {
+            if (player.isAlive()) {
                 System.out.println("THE WINNER IS PLAYER " + player.getNumber() + " (" + player.getName() + ").");
             }
         }

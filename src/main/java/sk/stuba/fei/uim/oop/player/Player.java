@@ -45,7 +45,7 @@ public class Player {
 
     public void useActionCard(Pond pond, Player[] players) {
         this.actionCardsOnHand.get(cardSelection).activate(pond, players);
-        if (this.isActive()) {
+        if (this.isAlive()) {
             this.takeNewCard(pond, this.cardSelection);
         }
     }
@@ -109,7 +109,7 @@ public class Player {
         }
     }
 
-    public boolean isActive() {
+    public boolean isAlive() {
         return this.ducks > 0;
     }
 
